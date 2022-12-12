@@ -50,3 +50,36 @@
   </div>
 </form>
 </template>
+
+// <script>
+// import axios from "axios";
+// import { onMounted, ref } from "vue";
+// export default {
+// setup() {
+//     //reactive state
+//     let Login = ref([]);
+//     //mounted
+//     onMounted(() => {
+//       //get API from Laravel Backend
+//       axios
+//         .post("http://127.0.0.1:8000/api/login")
+//         if(response.Login.user == 'admin@gmail.com'){
+//           Router.push({
+//             name: "adminPage",
+//           });
+//         }else{
+//           Router.push({
+//             name: "",
+//           });
+//         };
+
+        
+//     });
+
+//     //return
+//     return {
+//       Login,
+//     };
+//   },
+// }
+// </script>

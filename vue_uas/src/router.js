@@ -8,6 +8,12 @@ const routes = [
     component: () => import('@/components/DashboardLayout.vue'),
         children:[
             {
+                path: "/admin",
+                name: "admin.index",
+                component: () =>
+                import('@/views/Admin/adminPage.vue'),
+            },
+            {
                 path: "/barang",
                 name: "barang.index",
                 component: () =>

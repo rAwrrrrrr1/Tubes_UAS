@@ -7,7 +7,7 @@
       <div class="col-md-12">
         <div class="card border-0 rounded shadow">
           <div class="card-body">
-            <!-- <router-link :to="{ name: 'barang.create' }" class="btn btn-md btn-success">TAMBAH BARANG</router-link> -->
+            <router-link :to="{ name: 'barang.create' }" class="btn btn-md btn-success">TAMBAH BARANG</router-link>
             <table class="table table-striped table-bordered mt-4">
               <thead class="thead-dark">
                 <tr>
@@ -25,7 +25,11 @@
                   <td>{{ barang.jumlah_barang }}</td>
                   <td>{{ barang.harga_barang }}</td>
                   <td class="text-center">
-                    <button class="btn btn-info">BELI</button>
+                    <router-link :to="{ name: 'barang.edit', params: { id: barang.id } }" class="btn btn-sm btn-primary mr-1"> EDIT</router-link>
+                    <!-- &nbsp;
+                    <button class="btn btn-info">BELI</button> -->
+                    &nbsp;
+                    <button @click="hapus(barang.id)" class="btn btn-sm btn-danger ml1">DELETE</button>
                   </td>
                 </tr>
               </tbody>
