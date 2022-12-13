@@ -34,8 +34,8 @@ class AuthController extends Controller
         if(Auth::check())
         {
             $user = Auth::user();
-            // $user->getRoleNames();
-            // $user->access_token = $user->createToken('upt-museum')->plainTextToken;
+            $user->getRoleNames();
+            $user->access_token = $user->createToken('upt-museum')->plainTextToken;
 
             return response()->json([
                 'status'=> 200,

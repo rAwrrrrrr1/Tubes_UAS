@@ -3,7 +3,17 @@ import { createRouter, createWebHistory } from 'vue-router'
 //define a routes
 const routes = [
     {
-    path: '/',
+        path: '/',
+        name: 'login',
+        component: () => import('@/components/indexPage.vue')
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: () => import('@/components/registerPage.vue')
+    },
+    {
+    path: '/beranda',
     name: 'beranda',
     component: () => import('@/components/DashboardLayout.vue'),
         children:[
@@ -30,18 +40,6 @@ const routes = [
                 name: "barang.edit",
                 component: () =>
                 import('@/views/Barang/editPage.vue'),
-            },
-            {
-                path: "/login",
-                name: "login.index",
-                component: () =>
-                import('@/views/Login/indexPage.vue'),
-            },
-            {
-                path: "/login",
-                name: "login.register",
-                component: () =>
-                import('@/views/Login/registerPage.vue'),
             },
         ], 
     },

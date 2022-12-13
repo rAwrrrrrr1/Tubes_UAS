@@ -11,9 +11,6 @@
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <router-link :to="{ name: 'login.index' }" class="nav-link">Login/Register</router-link>
-            </li>
-            <li class="nav-item">
               <router-link :to="{ name: 'barang.index' }" class="nav-link">Barang</router-link>
             </li>
             <li class="nav-item">

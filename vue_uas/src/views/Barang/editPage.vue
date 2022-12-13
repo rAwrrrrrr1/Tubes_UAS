@@ -6,7 +6,7 @@
           <div class="card-body">
             <h4>EDIT BARANG</h4>
             <hr>
-            <form @submit.prevent="store">
+            <form @submit.prevent="update">
               <!-- <div class="form-group mb-3"> -->
                 <!-- <label class="form-label">Gambar Barang</label> -->
                 <!-- <input type="file" class="form-control" placeholder="Masukkan gambar barang" /> -->
@@ -56,8 +56,8 @@
   </div>
 </template>
 <script>
-import { reactive, ref } from "vue";
-import { useRouter } from "vue-router";
+import { onMounted, reactive, ref } from "vue";
+import { useRouter, useRoute } from 'vue-router';
 import axios from "axios";
 export default {
   setup() {
@@ -73,38 +73,46 @@ export default {
     const validation = ref([]);
     //vue router
     const router = useRouter();
-    //method store
-    function store() {
-      //let gambar = barang.gambar;
-      let nama_barang = barang.nama_barang;
-      let nama_kategori = barang.nama_kategori;
-      let jumlah_barang = barang.jumlah_barang;
-      let harga_barang = barang.harga_barang;
-      axios
-        .post("http://localhost:8000/api/barangs", {
-          //gambar: gambar,
-          nama_barang: nama_barang,
-          nama_kategori: nama_kategori,
-          jumlah_barang: jumlah_barang,
-          harga_barang: harga_barang,
+    const route = useRoute();
+    
+    onMounted(() => {
+      axios.get("http://127.0.0.1:8000/api/barangs/"+route.params.id)
+        .then(response => {
+          barang.nama_barang = response.data.data.nama_barang
+          barang.nama_kategori = response.data.data.nama_kategori
+          barang.jumlah_barang = response.data.data.jumlah_barang
+          barang.harga_barang = response.data.data.harga_barang
+        }).catch(error => {
+            console.log(error.response.data)
         })
-        .then(() => {
-          //redirect ke post index
-          router.push({
-            name: "barang.index",
-          });
+    })
+
+    function update(){
+      let nama_barang = barang.nama_barang
+      let nama_kategori = barang.nama_kategori
+      let jumlah_barang = barang.jumlah_barang
+      let harga_barang = barang.harga_barang
+
+      axios.put("http://127.0.0.1:8000/api/barangs/"+route.params.id, {
+        nama_barang: nama_barang,
+        nama_kategori: nama_kategori,
+        jumlah_barang: jumlah_barang,
+        harga_barang: harga_barang,
+      }).then(() => {
+        router.push({
+          name: 'barang.index'
         })
-        .catch((error) => {
-          //assign state validation with error
-          validation.value = error.response.data;
-        });
+      }).catch(error => {
+        validation.value = error.response.data
+      })
     }
+
     //return
     return {
       barang,
       validation,
       router,
-      store,
+      update,
     };
   },
 };

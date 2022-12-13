@@ -66,11 +66,16 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama_barang'  => 'required',             
-            'nama_kategori'     => 'required',             
-            'jumlah_barang'   => 'required'
+        $validator = Validator::make($request->all(), [
+            'nama_barang' => 'required',
+            'nama_kategori' => 'required',
+            'jumlah_barang' => 'required',
+            'harga_barang' => 'required',
         ]);
+
+        if($validator->fails()){
+            return (response()->json($validator->errors(), 422));
+        }
 
         $barang = Barang::find($id);          
             $barang->nama_barang  = $request->get('nama_barang');             
@@ -78,7 +83,7 @@ class BarangController extends Controller
             $barang->jumlah_barang   = $request->get('jumlah_barang');
             $barang->save();         
         
-            return redirect('/barang')->with('success', 'Barang updated.');
+            return new BarangResource(true, 'Barang berhasil di edit', $barang);
     }
 
     public function destroy($id)
@@ -87,5 +92,22 @@ class BarangController extends Controller
         $barang->delete();
 
         return redirect()->route('barang.index')->with('success', 'Barang deleted successfully');
+    }
+
+    public function show($id)
+    {
+        $barang = Barang::find($id);
+
+        if (!is_null($barang)) {
+            return response([
+                'message' => 'Retrieve Barang Success',
+                'data' => $barang
+            ], 200);
+        }
+
+        return response([
+            'message' => 'Barang Not Found',
+            'data' => null
+        ], 404);
     }
 }

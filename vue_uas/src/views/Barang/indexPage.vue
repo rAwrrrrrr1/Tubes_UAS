@@ -2,39 +2,19 @@
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">BARANG</h1>
   </div>
-  <div class="container mt-5">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card border-0 rounded shadow">
-          <div class="card-body">
-            <!-- <router-link :to="{ name: 'barang.create' }" class="btn btn-md btn-success">TAMBAH BARANG</router-link> -->
-            <table class="table table-striped table-bordered mt-4">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col">NAMA BARANG</th>
-                  <th scope="col">KATEGORI</th>
-                  <th scope="col">STOK TERSEDIA</th>
-                  <th scope="col">HARGA</th>
-                  <th scope="col">AKSI</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(barang, id) in barangs" :key="id">
-                  <td>{{ barang.nama_barang }}</td>
-                  <td>{{ barang.nama_kategori }}</td>
-                  <td>{{ barang.jumlah_barang }}</td>
-                  <td>{{ barang.harga_barang }}</td>
-                  <td class="text-center">
-                    <button class="btn btn-info">BELI</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+  <div v-for="(barang, id) in barangs" :key="id">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{ barang.nama_barang }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ barang.nama_kategori }}</h6>
+        <p class="card-text">Harga: {{ barang.harga_barang }} <br>
+          Stok Tersedia: {{ barang.jumlah_barang }} </p>
+        <button class="btn btn-info">BELI</button>
       </div>
     </div>
+      <br>
   </div>
+  
 </template>
 <script>
 import axios from "axios";
